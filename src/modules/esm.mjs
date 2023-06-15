@@ -1,8 +1,8 @@
-import path from "path";
+import { sep, dirname } from "path";
 import { release, version } from "os";
 import { createServer as createServerHttp } from "http";
 import { fileURLToPath } from "url";
-import { dirname } from "path";
+
 import "./files/c.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -24,7 +24,7 @@ if (random > 0.5) {
 
 console.log(`Release ${release()}`);
 console.log(`Version ${version()}`);
-console.log(`Path segment separator is "${path.sep}"`);
+console.log(`Path segment separator is "${sep}"`);
 
 console.log(`Path to current file is ${__filename}`);
 console.log(`Path to current directory is ${__dirname}`);
