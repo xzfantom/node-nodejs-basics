@@ -26,7 +26,7 @@ const performCalculations = async () => {
     const numberOfWorkers = os.cpus().length;
 
     for (let i = 0; i < numberOfWorkers; i++) {
-        workers.push(new Worker(join(__dirname, 'worker.js'), { workerData: i + 100 }));
+        workers.push(new Worker(join(__dirname, 'worker.js'), { workerData: i + 10 }));
     }
 
     const results = await Promise.all(workers.map(worker => new Promise((resolve, reject) => {
