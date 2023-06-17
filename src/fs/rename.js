@@ -3,28 +3,32 @@
 // already exists Error with message FS operation failed must be thrown)
 
 import fs from 'fs/promises';
-import {dirname, join} from 'path';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 
-const FS_OPERATION_FAILED = "FS operation failed";
+const FS_OPERATION_FAILED = 'FS operation failed';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const isExists = async (path) =>
-    fs.stat(path)
-        .then(() => true)
-        .catch(() => false)
-        
+  fs
+    .stat(path)
+    .then(() => true)
+    .catch(() => false);
+
 const rename = async () => {
-    const basePath = dirname(process.argv[1]);
-    const source = join(basePath, "files", "wrongFilename.txt");
-    const destination = join(basePath, "files", "properFilename.md");
+  const source = join(__dirname, 'files', 'wrongFilename.txt');
+  const destination = join(__dirname, 'files', 'properFilename.md');
 
-    const isSourceExists = await isExists(source);
-    const isDestinationExists = await isExists(destination);
+  const isSourceExists = await isExists(source);
+  const isDestinationExists = await isExists(destination);
 
-    if (!isSourceExists || isDestinationExists) {
-        throw new Error(FS_OPERATION_FAILED);
-    }
+  if (!isSourceExists || isDestinationExists) {
+    throw new Error(FS_OPERATION_FAILED);
+  }
 
-    fs.rename(source, destination);
+  fs.rename(source, destination);
 };
 
 await rename();
